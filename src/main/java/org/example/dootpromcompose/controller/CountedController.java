@@ -1,6 +1,7 @@
 package org.example.dootpromcompose.controller;
 
 import io.micrometer.core.annotation.Counted;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -8,13 +9,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class CountedController {
 
     @Counted(value = "give_me_money", description = "돈 내놔")
-    @GetMapping
+    @GetMapping("/counted")
     public String getCounted(){
         return "Counted OK";
     }
 
     @GetMapping("/error")
-    public String getError(){
-        throw new RuntimeException("Error");
+    public ResponseEntity<Void> getError(){
+        return ResponseEntity.status(500).build();
     }
 }
